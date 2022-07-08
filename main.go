@@ -1,14 +1,15 @@
 package main
 
 type Place struct {
+	id         string
 	Name       string
 	Doors      []*Door
 	PlaceItems []*PlaceItem
-	PlacesToGo []*Place
+	PlacesToGo []string
 }
 
 type Door struct {
-	destination Place
+	destination string
 	IsLocked    bool
 }
 
@@ -39,13 +40,15 @@ func initGame() {
 		Items: []*Item{&tee},
 	}
 	var kitchen Place = Place{
-		Name:       "Kitchen",
+		id:         "kitchen",
+		Name:       "кухня",
 		PlaceItems: []*PlaceItem{&tableKitchen},
-		PlacesToGo: []*Place{&hallway},
+		PlacesToGo: []string{"hallway"},
 	}
 	var hallway Place = Place{
+		id:         "hallway",
 		Name:       "коридор",
-		PlacesToGo: []*Place{&kitchen, &myRoom, &outside},
+		PlacesToGo: []string{"kitchen", "outside", "myRoom"},
 	}
 	var notes Item = Item{
 		Name: "конспекты",
@@ -65,17 +68,19 @@ func initGame() {
 		Items: []*Item{&backpack},
 	}
 	var myRoom Place = Place{
+		id:         "myRoom",
 		Name:       "комната",
 		PlaceItems: []*PlaceItem{&chairMyRoom, &tableMyRoom},
-		PlacesToGo: []*Place{&hallway},
+		PlacesToGo: []string{"hallway"},
 	}
 	var lockedDoor Door = Door{
-		destination: outside,
+		destination: "outside",
 		IsLocked:    true,
 	}
 	var outside Place = Place{
+		id:         "outside",
 		Name:       "улица",
-		PlacesToGo: []*Place{&hallway},
+		PlacesToGo: []string{"hallway"},
 		Doors:      []*Door{&lockedDoor},
 	}
 }
